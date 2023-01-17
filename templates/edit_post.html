@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block style %}  {% endblock %}
+
+  <title>{% block title %} Editar Postagem {% endblock %}</title>
+{% block content %}
+ <!-- -------- START HEADER 4 w/ search book a ticket form ------- -->
+ <header>
+    <div class="page-header min-height-400 d-flex justify-content-center" style="background-image: url('../static/assets/img/city-profile.jpg');" loading="lazy">
+     <h1 class="text-white">EDITAR POSTAGEM</h1>
+     <span class="mask bg-gradient-dark opacity-8"></span>
+   </div>
+ </header>
+
+
+<section>
+    <div class="container py-4 my-5">
+      <div class="row">
+        <div class="col-lg-7 mx-auto d-flex justify-content-center flex-column">
+          <h2 class="text-center mb-4">Editar Postagem</h2>
+          <form role="form" id="contact-form" method="post" autocomplete="off">
+            <div class="card-body">
+              <div class="row">
+                <div class="mb-4">
+                  <div class="input-group input-group-dynamic">
+                    <label class="form-label">Título</label>
+                    <input class="form-control" aria-label="First Name..." type="text" name="titulo" value="{{ post[2] }}">
+                  </div>
+                </div>
+              </div>
+              <div class="mb-4">
+                <div class="input-group input-group-dynamic">
+                  <label class="form-label">Categoria</label>
+                  <input type="text" name="categoria" class="form-control" value="{{ post[4] }}">
+                </div>
+              </div>
+              <div class="input-group mb-4 input-group-static">
+                <label>Seu Conteúdo</label>
+                <textarea name="conteudo" class="form-control" id="message" rows="4">{{ post[3] }}</textarea>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <button type="submit" class="btn bg-gradient-dark w-100">Enviar Postagem</button>
+                </div>
+              </div>
+            </div>
+          </form>
+
+          <hr>
+          <h2 class="text-center">Deletar?</h2>
+          <form action="{{ url_for('deletar', id=post[0]) }}" class="d-flex justify-content-center p-3" method="POST">
+            <input type="submit" value="Deletar Postagem" class="btn bg-gradient-danger w-auto me-2"
+                    onclick="return confirm('Tem certeza que deseja apagar esta postagem?')">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+<script src="../../assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="../../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://demos.creative-tim.com/material-kit/assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
+
+{% endblock %}

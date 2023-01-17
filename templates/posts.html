@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block style %}  {% endblock %}
+
+  <title>{% block title %} Todas as Postagens {% endblock %}</title>
+{% block content %}
+ <!-- -------- START HEADER 4 w/ search book a ticket form ------- -->
+ <header>
+   <div class="page-header min-height-400 d-flex justify-content-center" style="background-image: url('../static/assets/img/city-profile.jpg');" loading="lazy">
+    <h1 class="text-white">POSTAGENS</h1>
+    <span class="mask bg-gradient-dark opacity-8"></span>
+  </div>
+</header>
+<div class="container w-100 my-4">
+  <h1>Todas as Postagens</h1>
+  {% for post in posts %}
+  <div class="card p-3 my-4">
+      <h2>{{ post[2] }}</h2>
+      <p>Criado em {{ post[1] }}, por <i>{{ post[5] }}</i></p>
+      <h5>{{ post[3] }}</h5>
+      {% if session['email'] == post[5] %}
+      <a href="{{ url_for('editar_postagem', id=post[0]) }}" class="text-info text-sm icon-move-right">Editar
+        <i class="fas fa-arrow-right text-xs ms-1"></i>
+      </a>
+      {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+
+{% endblock %}

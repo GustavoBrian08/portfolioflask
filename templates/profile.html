@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block style %}  {% endblock %}
+
+  <title>{% block title %} Perfil do Usuário {% endblock %}</title>
+{% block content %}
+
+ <!-- -------- START HEADER 4 w/ search book a ticket form ------- -->
+ <header>
+  <div class="page-header min-height-400" style="background-image: url('../static/assets/img/city-profile.jpg');" loading="lazy">
+    <span class="mask bg-gradient-dark opacity-8"></span>
+  </div>
+</header>
+<!-- -------- END HEADER 4 w/ search book a ticket form ------- -->
+<div class="card card-body blur shadow-blur mx-3 mx-md-4 mt-n6 mb-4">
+  <!-- START Testimonials w/ user image & text & info -->
+  <section class="py-sm-7 py-5 position-relative">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 mx-auto">
+          <div class="mt-n8 mt-md-n9 text-center">
+            <img class="avatar avatar-xxl shadow-xl position-relative z-index-2" src="../static/assets/img/profile.webp" alt="bruce" loading="lazy">
+          </div>
+          <div class="row py-5">
+            <div class="col-lg-7 col-md-7 z-index-2 position-relative px-md-2 px-sm-5 mx-auto">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="mb-0"> {{ nome }}</h3>
+                <div class="d-block">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-sm btn-outline-info text-nowrap mb-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Editar
+                  </button>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-auto">
+                  <span class="h6">Atuação:</span>
+                  <span>{{ atuacao }}</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">Telefone:</span>
+                  <span>{{ telefone }}</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">Data de Nascimento:</span>
+                  <span>{{ nascimento }}</span>
+                </div>
+                <div class="col-auto">
+                  <span class="h6">Endereço:</span>
+                  <span>{{ endereco }}</span>
+                </div>
+              </div>
+              <p class="text-lg mb-0">
+                {% if descricao %}
+                {{ descricao }} 
+                {% else %}
+                Sem descrição.
+                {% endif %}<br>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END Testimonials w/ user image & text & info -->
+  
+</div>
+<section class="py-3">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3 class="mb-5">Minhas Postagens</h3>
+      </div>
+    </div>
+    <div class="row">
+      {% for post in posts %}
+      {% if post[5] == session['email'] %}
+      <div class="col-lg-3 col-sm-6">
+        <div class="card card-plain">
+          <div class="card-header p-0 position-relative">
+          </div>
+          <div class="card-body px-0">
+            <h5>
+              <a href="{{ url_for('editar_postagem', id=post[0]) }}" class="text-dark font-weight-bold">{{ post[2] }}</a>
+            </h5>
+            <p>
+              {{ post[3][0:150] }}...
+            </p>
+            <a href="{{ url_for('postagens') }}" class="text-info text-sm icon-move-right">Ler Mais
+              <i class="fas fa-arrow-right text-xs ms-1"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+
+<div class="container py-7">
+  <div class="row mt-5">
+    <div class="col-sm-3 col-6 mx-auto">
+      
+
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Editar Perfil</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <section>
+                <div class="container py-4">
+                  <div class="row">
+                    <div class="d-flex justify-content-center align-itens-center flex-column">
+                      
+                      <form role="form" id="contact-form" method="post" autocomplete="off">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-md-6">
+                              <div class="input-group input-group-dynamic mb-4">
+                                <label class="form-label">Nome</label>
+                                <input name="nome" class="form-control" aria-label="First Name..." type="text" >
+                              </div>
+                            </div>
+                            <div class="col-md-6 ps-2">
+                              <div class="input-group input-group-dynamic">
+                                <label class="form-label">Atuação</label>
+                                <input name="atuacao" type="text" class="form-control" placeholder="" aria-label="Last Name..." >
+                              </div>
+                            </div>
+                          </div>
+                          <div class="mb-4">
+                            <div class="input-group input-group-dynamic">
+                              <label class="form-label">Endereço</label>
+                              <input name="endereco" type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="mb-4">
+                            <div class="input-group input-group-dynamic">
+                              <label class="form-label">Telefone</label>
+                              <input name="telefone" type="tel" class="form-control">
+                            </div>
+                          </div>
+                          <div class="mb-4">
+                            <div class="input-group input-group-dynamic">
+                              <label class="form-label">Data de Nascimento</label>
+                              <input name="nascimento" type="text" class="form-control">
+                            </div>
+                          </div>
+                          <div class="mb-4">
+                            <div class="input-group input-group-dynamic">
+                              <label class="form-label">Senha</label>
+                              <input name="senha" type="password" class="form-control">
+                            </div>
+                          </div>
+                          <div class="input-group mb-4 input-group-static">
+                            <label>Descrição</label>
+                            <textarea name="descricao" class="form-control" id="message" rows="4"></textarea>
+                          </div>
+                          
+                        </div>
+
+                        <div class="modal-footer justify-content-between">
+                          <button type="button" class="btn bg-gradient-dark mb-0" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn bg-gradient-primary mb-0">Salvar</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- -------- END FOOTER 5 w/ DARK BACKGROUND ------- -->
+<!--   Core JS Files   -->
+<script src="../static/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="../static/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="../static/assets/js/plugins/perfect-scrollbar.min.js"></script>
+<!--  Plugin for Parallax, full documentation here: https://github.com/wagerfield/parallax  -->
+<script src="../static/assets/js/plugins/parallax.min.js"></script>
+<!-- Control Center for Material UI Kit: parallax effects, scripts for the example pages etc -->
+<!--  Google Maps Plugin    -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+<script src="../static/assets/js/material-kit.min.js?v=3.0.4" type="text/javascript"></script>
+
+{% endblock %}
